@@ -2,9 +2,13 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-COPY tsconfig.json ./
-COPY . .
+# Only copy web dependencies and source
+COPY web/package*.json ./
+COPY web/tsconfig.json ./
+COPY web/public ./public
+COPY web/src ./src
+COPY web/next.config.js ./next.config.js
+COPY shared ./shared
 
 RUN npm install --production
 RUN npm run build

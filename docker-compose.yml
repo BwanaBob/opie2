@@ -23,8 +23,8 @@ services:
 
   bot:
     build:
-      context: ./bot
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: bot/Dockerfile
     container_name: opie2-bot
     restart: unless-stopped
     env_file:
@@ -35,8 +35,8 @@ services:
 
   api:
     build:
-      context: ./api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: api/Dockerfile
     container_name: opie2-api
     restart: unless-stopped
     env_file:
@@ -49,8 +49,8 @@ services:
 
   web:
     build:
-      context: ./web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: web/Dockerfile
     container_name: opie2-web
     restart: unless-stopped
     env_file:

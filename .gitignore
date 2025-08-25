@@ -1,5 +1,8 @@
-node_modules
-# Keep environment variables out of version control
+node_modules/
 .env
-
+postgres-data/
+chroma-data/
 /generated/prisma
+dist/
+.next/
+*.log
