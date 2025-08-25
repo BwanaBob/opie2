@@ -7,7 +7,7 @@ COPY web/package*.json ./
 COPY web/tsconfig.json ./
 COPY web/public ./public
 COPY web/src ./src
-COPY web/next.config.js ./next.config.js
+COPY web/next.config.ts ./next.config.ts
 COPY shared ./shared
 
 RUN npm install --production
