@@ -8,10 +8,9 @@ COPY bot/src ./src
 COPY shared ./shared
 COPY prisma ./prisma
 
-RUN npm install --production
+RUN npm install
 RUN npm run build
-
-# Generate Prisma client
+RUN npm prune --production
 RUN npx prisma generate
 
 ENV NODE_ENV=production

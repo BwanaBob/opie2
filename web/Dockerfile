@@ -10,8 +10,10 @@ COPY web/src ./src
 COPY web/next.config.ts ./next.config.ts
 COPY shared ./shared
 
-RUN npm install --production
+# Install all dependencies (including dev), build, then prune devDependencies
+RUN npm install
 RUN npm run build
+RUN npm prune --production
 
 ENV NODE_ENV=production
 
