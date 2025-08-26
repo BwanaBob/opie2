@@ -1,5 +1,7 @@
 node_modules/
 .env
+bot/.env
+api/.env
 postgres-data/
 chroma-data/
 /generated/prisma
