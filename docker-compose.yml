@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: opiedbuser
-      POSTGRES_PASSWORD: opiep@ss
+      POSTGRES_PASSWORD: opiepass
       POSTGRES_DB: opie2
     volumes:
       - postgres-data:/var/lib/postgresql/data
