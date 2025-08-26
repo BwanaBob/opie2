@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guild {
+  id               String           @id
+  name             String
+  joined           DateTime         @default(now())
+  prefix           String           @default("!")
+  settings         Json             @default("{}")
+  users            User[]
+  commands         Command[]
+  starboardEntries StarboardEntry[]
+  featureToggles   FeatureToggle[] // <-- Add this
+  prompts          Prompt[] // <-- Add this
+}
+
+model User {
+  id               String           @id
+  guildId          String
+  guild            Guild            @relation(fields: [guildId], references: [id])
+  username         String
+  joinedAt         DateTime         @default(now())
+  points           Int              @default(0)
+  isAdmin          Boolean          @default(false)
+  isModerator      Boolean          @default(false)
+  starboardEntries StarboardEntry[] // <-- Add this
+}
+
+model Command {
+  id          String  @id @default(cuid())
+  guildId     String
+  guild       Guild   @relation(fields: [guildId], references: [id])
+  name        String
+  description String
+  enabled     Boolean @default(true)
+}
+
+model StarboardEntry {
+  id        String   @id @default(cuid())
+  guildId   String
+  guild     Guild    @relation(fields: [guildId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  messageId String
+  emoji     String
+  points    Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model FeatureToggle {
+  id      String  @id @default(cuid())
+  guildId String
+  guild   Guild   @relation(fields: [guildId], references: [id])
+  feature String
+  enabled Boolean @default(true)
+}
+
+model Prompt {
+  id        String   @id @default(cuid())
+  guildId   String
+  guild     Guild    @relation(fields: [guildId], references: [id])
+  prompt    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
