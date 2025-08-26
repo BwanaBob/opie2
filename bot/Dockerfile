@@ -7,6 +7,7 @@ COPY bot/tsconfig.json ./
 COPY bot/src ./src
 COPY shared ./shared
 COPY prisma ./prisma
+COPY tsconfig.base.json ./tsconfig.base.json
 
 RUN npm install
 RUN npm run build
