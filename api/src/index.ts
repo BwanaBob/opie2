@@ -1,19 +1,24 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { PrismaClient } from '@prisma/client';
 
-dotenv.config();
+import express from 'express';
+import healthRouter from './routes/health';
+import { prisma } from './services/prisma';
 
 const app = express();
-const prisma = new PrismaClient();
-const PORT = process.env.API_PORT || 3001;
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
+app.use('/health', healthRouter);
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date() });
+// Example: test Prisma connection
+app.get('/dbtest', async (req, res) => {
+  try {
+    const result = await prisma.$queryRaw`SELECT 1`;
+    res.json({ ok: true, result });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`API server running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`API server running on port ${port}`);
 });
